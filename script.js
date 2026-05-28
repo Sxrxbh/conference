@@ -5,15 +5,17 @@
 const GOOGLE_SHEET_URL = 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE';
 
 // ============================================
-// Countdown — 23 minutes from page load
+// Countdown — Early Bird ends May 31, 2026, 11:59 PM IST
 // ============================================
-const countdownEnd = Date.now() + 23 * 60 * 1000;
+const countdownEnd = new Date('2026-05-31T23:59:00+05:30').getTime();
 function updateCountdown() {
   const diff = Math.max(0, countdownEnd - Date.now());
-  const m = Math.floor(diff / 60000);
-  const s = Math.floor((diff % 60000) / 1000);
-  document.getElementById('cd-days').textContent = '00';
-  document.getElementById('cd-hours').textContent = '00';
+  const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+  const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+  const s = Math.floor((diff % (1000 * 60)) / 1000);
+  document.getElementById('cd-days').textContent = String(d).padStart(2, '0');
+  document.getElementById('cd-hours').textContent = String(h).padStart(2, '0');
   document.getElementById('cd-mins').textContent = String(m).padStart(2, '0');
   document.getElementById('cd-secs').textContent = String(s).padStart(2, '0');
 }

@@ -433,6 +433,207 @@ body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--tex
   border-radius: 50px;
 }
 
+/* As Seen On Trust Strip */
+.seen-on-strip {
+  background: linear-gradient(135deg, #1a1150, #2d1b6e);
+  border-radius: 16px;
+  padding: 24px 32px;
+  margin: 32px auto 0;
+  max-width: 620px;
+  text-align: center;
+}
+.seen-on-inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 10px;
+}
+.seen-on-label {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+.seen-on-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.shark-tank-logo-text {
+  color: #f7c948;
+  font-size: 18px;
+  font-weight: 900;
+  letter-spacing: 1px;
+}
+.seen-on-divider {
+  color: rgba(255, 255, 255, 0.2);
+  font-size: 20px;
+}
+.seen-on-network {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 14px;
+  font-weight: 600;
+}
+.seen-on-desc {
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 13px;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* Speaker Bio */
+.speaker-bio {
+  font-size: 13px;
+  color: var(--text-light);
+  line-height: 1.6;
+  margin-bottom: 14px;
+  min-height: 60px;
+}
+
+/* Credibility Stats Bar */
+.credibility-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  background: linear-gradient(135deg, #1a1150, #2d1b6e);
+  border-radius: 16px;
+  padding: 28px 32px;
+  margin-top: 40px;
+}
+.cred-stat {
+  flex: 1;
+  text-align: center;
+}
+.cred-number {
+  font-size: 28px;
+  font-weight: 900;
+  color: #f7c948;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.cred-label {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.6);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.cred-divider {
+  width: 1px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.15);
+  flex-shrink: 0;
+}
+@media (max-width: 700px) {
+  .credibility-bar {
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  .cred-stat {
+    flex: 1 1 40%;
+  }
+  .cred-divider {
+    display: none;
+  }
+  .seen-on-inner {
+    flex-direction: column;
+    gap: 8px;
+  }
+}
+
+/* Why Now Section */
+.why-now-section {
+  padding: 60px 0 0;
+}
+.why-now-card {
+  background: linear-gradient(135deg, #1a1150, #2d1b6e);
+  border-radius: 20px;
+  padding: 40px 36px 32px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+.why-now-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 28px;
+}
+.why-now-icon {
+  font-size: 28px;
+}
+.why-now-title {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: clamp(22px, 3.5vw, 30px);
+  font-weight: 700;
+  color: #fff;
+}
+.why-now-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px 24px;
+  margin-bottom: 28px;
+}
+.why-now-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  padding: 14px 16px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+.why-now-bullet {
+  font-size: 20px;
+  flex-shrink: 0;
+  line-height: 1.4;
+}
+.why-now-item p {
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.5;
+  margin: 0;
+}
+.social-proof-strip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(139, 195, 74, 0.2);
+  border-radius: 50px;
+  padding: 10px 24px;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 14px;
+  font-weight: 700;
+  max-width: 340px;
+  margin: 0 auto;
+}
+.social-proof-dot {
+  width: 10px;
+  height: 10px;
+  background: #8bc34a;
+  border-radius: 50%;
+  flex-shrink: 0;
+  animation: pulse-dot 1.5s ease-in-out infinite;
+}
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(139, 195, 74, 0.5); }
+  50% { opacity: 0.7; box-shadow: 0 0 0 6px rgba(139, 195, 74, 0); }
+}
+@media (max-width: 600px) {
+  .why-now-grid {
+    grid-template-columns: 1fr;
+  }
+  .why-now-card {
+    padding: 28px 20px 24px;
+  }
+}
+
 /* Pricing Section */
 .pricing-section {
   padding: 80px 0;
@@ -641,5 +842,105 @@ body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--tex
   }
   .pricing-rupee {
     font-size: 26px;
+  }
+}
+
+/* Book Pass CTA */
+.book-pass-wrapper {
+  max-width: 720px;
+  margin: 0 auto;
+  text-align: center;
+}
+.book-pass-content {
+  background: var(--card-bg);
+  backdrop-filter: blur(12px);
+  border-radius: 24px;
+  padding: 48px 40px;
+  border: 1px solid rgba(108, 60, 224, 0.12);
+  box-shadow: 0 24px 64px rgba(26, 17, 80, 0.08);
+}
+.book-pass-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, #1a1150, #2d1b6e);
+  color: #f7c948;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 6px 20px;
+  border-radius: 50px;
+  letter-spacing: 0.5px;
+  margin-bottom: 20px;
+}
+.book-pass-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(26px, 4vw, 36px);
+  font-weight: 700;
+  font-style: italic;
+  color: var(--navy);
+  margin-bottom: 12px;
+}
+.book-pass-desc {
+  color: var(--text-light);
+  font-size: 15px;
+  line-height: 1.7;
+  max-width: 580px;
+  margin: 0 auto 24px;
+}
+.book-pass-perks {
+  list-style: none;
+  padding: 0;
+  margin: 0 auto 32px;
+  display: inline-block;
+  text-align: left;
+}
+.book-pass-perks li {
+  padding: 6px 0;
+  font-size: 15px;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.book-pass-perks li span {
+  color: var(--purple);
+  font-weight: 800;
+  font-size: 16px;
+}
+.book-pass-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--gradient-cta);
+  color: #fff;
+  padding: 16px 40px;
+  border-radius: 60px;
+  font-size: 17px;
+  font-weight: 800;
+  text-decoration: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 8px 30px rgba(108, 60, 224, 0.3);
+}
+.book-pass-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 40px rgba(108, 60, 224, 0.4);
+}
+.book-pass-btn svg {
+  transition: transform 0.2s ease;
+}
+.book-pass-btn:hover svg {
+  transform: translateX(4px);
+}
+.book-pass-note {
+  margin-top: 16px;
+  font-size: 13px;
+  color: var(--text-light);
+  font-weight: 500;
+}
+@media (max-width: 520px) {
+  .book-pass-content {
+    padding: 32px 20px;
+  }
+  .book-pass-btn {
+    padding: 14px 28px;
+    font-size: 15px;
   }
 }
