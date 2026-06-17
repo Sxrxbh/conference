@@ -1232,7 +1232,7 @@ body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--tex
   display: flex;
   gap: 24px;
   width: max-content;
-  animation: summit-scroll 30s linear infinite;
+  animation: summit-scroll 80s linear infinite;
 }
 
 .summit-scroll-track:hover {
