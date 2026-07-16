@@ -9,12 +9,15 @@ const GOOGLE_SHEET_URL = 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE';
 // ============================================
 const countdownEnd = new Date('2026-05-31T23:59:00+05:30').getTime();
 function updateCountdown() {
+  const cdDays = document.getElementById('cd-days');
+  if (!cdDays) return; // Exit if countdown doesn't exist on page
+  
   const diff = Math.max(0, countdownEnd - Date.now());
   const d = Math.floor(diff / (1000 * 60 * 60 * 24));
   const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
   const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
   const s = Math.floor((diff % (1000 * 60)) / 1000);
-  document.getElementById('cd-days').textContent = String(d).padStart(2, '0');
+  cdDays.textContent = String(d).padStart(2, '0');
   document.getElementById('cd-hours').textContent = String(h).padStart(2, '0');
   document.getElementById('cd-mins').textContent = String(m).padStart(2, '0');
   document.getElementById('cd-secs').textContent = String(s).padStart(2, '0');
@@ -137,24 +140,33 @@ function handleSubmit(e) {
 // Lead Capture Popup
 // ============================================
 function showLeadPopup() {
-  document.getElementById('leadPopup').classList.add('active');
-  document.body.style.overflow = 'hidden';
+  const popup = document.getElementById('leadPopup');
+  if (popup) {
+    popup.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
 }
 
 function closeLeadPopup() {
-  document.getElementById('leadPopup').classList.remove('active');
-  document.body.style.overflow = '';
+  const popup = document.getElementById('leadPopup');
+  if (popup) {
+    popup.classList.remove('active');
+    document.body.style.overflow = '';
+  }
 }
 
 // Auto-show popup after 3 seconds (only if not already submitted this session)
-if (!sessionStorage.getItem('popupSubmitted')) {
+if (document.getElementById('leadPopup') && !sessionStorage.getItem('popupSubmitted')) {
   setTimeout(showLeadPopup, 3000);
 }
 
 // Close popup on overlay click (outside modal)
-document.getElementById('leadPopup').addEventListener('click', function(e) {
-  if (e.target === this) closeLeadPopup();
-});
+const leadPopupEl = document.getElementById('leadPopup');
+if (leadPopupEl) {
+  leadPopupEl.addEventListener('click', function(e) {
+    if (e.target === this) closeLeadPopup();
+  });
+}
 
 function handlePopupSubmit(e) {
   if (e) e.preventDefault();
