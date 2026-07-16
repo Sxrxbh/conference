@@ -238,3 +238,137 @@ function handlePopupSubmit(e) {
   // Redirect after 800ms
   setTimeout(doRedirect, 800);
 }
+
+// ============================================
+// Cofounder Form Modal
+// ============================================
+function openCofounderModal() {
+  document.getElementById('cofounderModal').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeCofounderModal() {
+  document.getElementById('cofounderModal').classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+// Close popup on overlay click (outside modal)
+const cfModal = document.getElementById('cofounderModal');
+if (cfModal) {
+  cfModal.addEventListener('click', function(e) {
+    if (e.target === this) closeCofounderModal();
+  });
+}
+
+function limitCheckboxes(checkbox) {
+  const checkboxes = document.querySelectorAll('#cfSuperpowers input[type="checkbox"]');
+  const checked = document.querySelectorAll('#cfSuperpowers input[type="checkbox"]:checked');
+  const errorMsg = document.getElementById('superpowerError');
+  
+  if (checked.length > 3) {
+    checkbox.checked = false; // Prevent checking
+  }
+  
+  // Update error message display
+  if (checked.length > 3) {
+    errorMsg.style.display = 'block';
+  } else {
+    errorMsg.style.display = 'none';
+  }
+}
+
+function handleCofounderSubmit(e) {
+  if (e) e.preventDefault();
+
+  // Validate checkboxes (max 3, but also ensure at least 1)
+  const checkedSuperpowers = document.querySelectorAll('#cfSuperpowers input[type="checkbox"]:checked');
+  if (checkedSuperpowers.length === 0 || checkedSuperpowers.length > 3) {
+    document.getElementById('superpowerError').style.display = 'block';
+    document.getElementById('superpowerError').textContent = 'Please select between 1 and 3 superpowers.';
+    return;
+  }
+
+  const btn = document.getElementById('cofounderSubmitBtn');
+  const originalText = btn ? btn.textContent : 'Submit Application';
+  if (btn) {
+    btn.textContent = '⏳ Submitting...';
+    btn.disabled = true;
+    btn.style.opacity = '0.7';
+  }
+
+  // Get selected superpowers
+  const superpowers = Array.from(checkedSuperpowers).map(cb => cb.value).join(', ');
+
+  // Get selected scale value
+  const scaleInput = document.querySelector('input[name="cfScale"]:checked');
+  const scale = scaleInput ? scaleInput.value : '';
+
+  // Collect form fields
+  let formData = {};
+  try {
+    formData = {
+      timestamp: new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' }),
+      source: 'cofounder_form',
+      // Section 1
+      firstName: document.getElementById('cfName') ? document.getElementById('cfName').value.trim() : '',
+      email: document.getElementById('cfEmail') ? document.getElementById('cfEmail').value.trim() : '',
+      phone: document.getElementById('cfPhone') ? document.getElementById('cfPhone').value.trim() : '',
+      city: document.getElementById('cfCity') ? document.getElementById('cfCity').value.trim() : '',
+      linkedin: document.getElementById('cfLink') ? document.getElementById('cfLink').value.trim() : '',
+      currentJob: document.getElementById('cfJob') ? document.getElementById('cfJob').value.trim() : '',
+      // Section 2
+      superpowers: superpowers,
+      proofOfWork: document.getElementById('cfProof') ? document.getElementById('cfProof').value.trim() : '',
+      uniqueSkill: document.getElementById('cfUniqueSkill') ? document.getElementById('cfUniqueSkill').value.trim() : '',
+      // Section 3
+      hoursCommitment: document.getElementById('cfHours') ? document.getElementById('cfHours').value : '',
+      priorityScale: scale,
+      resilience: document.getElementById('cfResilience') ? document.getElementById('cfResilience').value : '',
+      investment: document.getElementById('cfMoney') ? document.getElementById('cfMoney').value : '',
+      // Section 4
+      whyThisShow: document.getElementById('cfWhyThis') ? document.getElementById('cfWhyThis').value.trim() : '',
+      vision: document.getElementById('cfVision') ? document.getElementById('cfVision').value.trim() : '',
+      selloutNumber: document.getElementById('cfSellout') ? document.getElementById('cfSellout').value.trim() : '',
+      quitReason: document.getElementById('cfQuit') ? document.getElementById('cfQuit').value.trim() : '',
+      // Section 5
+      equitySplit: document.getElementById('cfEquity') ? document.getElementById('cfEquity').value : '',
+      falloutFault: document.getElementById('cfFallout') ? document.getElementById('cfFallout').value.trim() : '',
+      feedbackHandling: document.getElementById('cfFeedback') ? document.getElementById('cfFeedback').value : '',
+      anythingElse: document.getElementById('cfAnythingElse') ? document.getElementById('cfAnythingElse').value.trim() : ''
+    };
+  } catch (err) {
+    console.error('Error parsing cofounder form data:', err);
+  }
+
+  // Submit to Google Sheet via async fetch
+  try {
+    if (GOOGLE_SHEET_URL && GOOGLE_SHEET_URL !== 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE') {
+      fetch(GOOGLE_SHEET_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+      }).catch(err => console.error('Background cofounder log fetch error:', err));
+    }
+  } catch (err) {
+    console.error('Background cofounder sync failed to initialize:', err);
+  }
+
+  // Show Success modal
+  setTimeout(() => {
+    closeCofounderModal();
+    const successModal = document.getElementById('cofounderSuccessModal');
+    if (successModal) successModal.classList.add('active');
+    
+    // Reset form
+    const form = document.getElementById('cofounderForm');
+    if (form) form.reset();
+    
+    // Reset button
+    if (btn) {
+      btn.textContent = originalText;
+      btn.disabled = false;
+      btn.style.opacity = '1';
+    }
+  }, 1000);
+}

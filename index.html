@@ -1006,6 +1006,27 @@
   </div>
 </section>
 
+<!-- Careers Section -->
+<section class="section careers-section" id="careers">
+  <div class="container">
+    <div class="section-badge fade-up">💼 Join The Team</div>
+    <h2 class="section-title fade-up">Careers</h2>
+    <p class="section-sub fade-up">We're building something special. Want in?</p>
+
+    <div class="careers-grid fade-up">
+      <div class="job-card" onclick="openCofounderModal()">
+        <div class="job-header">
+          <span class="job-department">Core Team</span>
+          <span class="job-type">Full-Time / Equity</span>
+        </div>
+        <h3 class="job-title">Cofounder (The Other 0.5)</h3>
+        <p class="job-desc">Looking for a partner to build, scale, and host the show. Must have skin in the game.</p>
+        <button class="job-btn">Apply Now →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- Footer -->
 <footer class="footer">
   <div class="container">
@@ -1073,6 +1094,164 @@
       <button type="submit" class="popup-submit" id="popupSubmitBtn">🎫 Get Your Passes Now</button>
       <p class="popup-note">🔒 Your data is safe. We'll send pass details to your email.</p>
     </form>
+  </div>
+</div>
+
+<!-- Cofounder Application Modal -->
+<div class="popup-overlay" id="cofounderModal">
+  <div class="popup-modal cofounder-modal-content">
+    <button class="popup-close" onclick="closeCofounderModal()" aria-label="Close">✕</button>
+    <div class="popup-header" style="text-align: left;">
+      <h2 class="popup-title">So You Want to Be the Other 0.5?</h2>
+      <p class="popup-subtitle" style="font-size: 14px; margin-top: 8px;">This is the first filter, not the final interview. Takes ~7 minutes. Be honest — we'll cross-check the interesting answers later anyway.</p>
+    </div>
+    
+    <form class="popup-form cofounder-form" id="cofounderForm" onsubmit="handleCofounderSubmit(event)">
+      
+      <!-- Section 1: The Basics -->
+      <div class="form-section-header">Section 1: The Basics (a.k.a. Who Are You?)</div>
+      <div class="popup-field">
+        <input type="text" id="cfName" placeholder="Full name *" required>
+      </div>
+      <div class="popup-field">
+        <input type="email" id="cfEmail" placeholder="Email *" required>
+      </div>
+      <div class="popup-field">
+        <input type="tel" id="cfPhone" placeholder="Phone / WhatsApp *" required>
+      </div>
+      <div class="popup-field">
+        <input type="text" id="cfCity" placeholder="City you actually live in (not the one on your bio) *" required>
+      </div>
+      <div class="popup-field">
+        <input type="url" id="cfLink" placeholder="LinkedIn / Instagram / YouTube — drop your strongest link *" required>
+      </div>
+      <div class="popup-field">
+        <input type="text" id="cfJob" placeholder="What do you currently do for money? *" required>
+      </div>
+
+      <!-- Section 2: What You Bring to the Table -->
+      <div class="form-section-header">Section 2: What You Bring to the Table</div>
+      <div class="popup-field checkbox-group-field">
+        <label>Pick your superpowers (max 3 — everyone who picks all is picking none) *</label>
+        <div class="checkbox-options" id="cfSuperpowers">
+          <label><input type="checkbox" value="On-camera presence / hosting" onchange="limitCheckboxes(this)"> On-camera presence / hosting</label>
+          <label><input type="checkbox" value="Writing & scripting" onchange="limitCheckboxes(this)"> Writing & scripting</label>
+          <label><input type="checkbox" value="Video editing & post-production" onchange="limitCheckboxes(this)"> Video editing & post-production</label>
+          <label><input type="checkbox" value="Audio engineering" onchange="limitCheckboxes(this)"> Audio engineering</label>
+          <label><input type="checkbox" value="Growth & distribution" onchange="limitCheckboxes(this)"> Growth & distribution (SEO, algorithms, shorts strategy)</label>
+          <label><input type="checkbox" value="Sponsorships & sales" onchange="limitCheckboxes(this)"> Sponsorships & sales</label>
+          <label><input type="checkbox" value="Design & thumbnails" onchange="limitCheckboxes(this)"> Design & thumbnails</label>
+          <label><input type="checkbox" value="Operations & project management" onchange="limitCheckboxes(this)"> Operations & project management</label>
+          <label><input type="checkbox" value="Money (I can fund things)" onchange="limitCheckboxes(this)"> Money (I can fund things)</label>
+        </div>
+        <div class="error-msg" id="superpowerError" style="color: #ff4757; font-size: 12px; margin-top: 4px; display: none;">Please select exactly up to 3 superpowers.</div>
+      </div>
+      <div class="popup-field">
+        <input type="text" id="cfProof" placeholder="Proof of work — link to one thing you've made that you're proud of *" required>
+        <span class="field-hint">No portfolio? Describe the best thing you've built, shipped, or grown.</span>
+      </div>
+      <div class="popup-field">
+        <textarea id="cfUniqueSkill" rows="3" placeholder="What can you do that most people around you can't? *" required></textarea>
+      </div>
+
+      <!-- Section 3: Skin in the Game -->
+      <div class="form-section-header">Section 3: Skin in the Game</div>
+      <div class="popup-field">
+        <select id="cfHours" required>
+          <option value="">How many hours per week can you honestly commit? *</option>
+          <option value="Under 5">Under 5 (thanks for your honesty, and goodbye)</option>
+          <option value="5–10">5–10</option>
+          <option value="10–20">10–20</option>
+          <option value="20–40">20–40</option>
+          <option value="This IS the plan">This IS the plan</option>
+        </select>
+      </div>
+      <div class="popup-field scale-field">
+        <label>On a scale of "side hustle" to "sold my furniture" — where does this rank in your life? *</label>
+        <div class="scale-options">
+          <span>1</span>
+          <label><input type="radio" name="cfScale" value="1" required></label>
+          <label><input type="radio" name="cfScale" value="2"></label>
+          <label><input type="radio" name="cfScale" value="3"></label>
+          <label><input type="radio" name="cfScale" value="4"></label>
+          <label><input type="radio" name="cfScale" value="5"></label>
+          <span>5</span>
+        </div>
+      </div>
+      <div class="popup-field">
+        <select id="cfResilience" required>
+          <option value="">If we earn ₹0 for the next 12 months, are you still showing up to record episode 47? *</option>
+          <option value="Yes, unconditionally">Yes, unconditionally</option>
+          <option value="Yes, if I see growth">Yes, if I see growth</option>
+          <option value="I'd need to talk about it">I'd need to talk about it</option>
+          <option value="No — and I respect myself for saying it">No — and I respect myself for saying it</option>
+        </select>
+      </div>
+      <div class="popup-field">
+        <select id="cfMoney" required>
+          <option value="">Can you put money in — for mics, edits, and chai — before sponsors show up? *</option>
+          <option value="Yes, meaningfully">Yes, meaningfully</option>
+          <option value="Yes, a little">Yes, a little</option>
+          <option value="No, but I compensate with time">No, but I compensate with time</option>
+          <option value="No">No</option>
+        </select>
+      </div>
+
+      <!-- Section 4: Intent & Vision -->
+      <div class="form-section-header">Section 4: Intent & Vision</div>
+      <div class="popup-field">
+        <textarea id="cfWhyThis" rows="3" placeholder="Why THIS show, and why with me? ('I love content' is not an answer) *" required></textarea>
+      </div>
+      <div class="popup-field">
+        <textarea id="cfVision" rows="3" placeholder="Describe Zero Point Five Show in 5 years. Be specific — 'big' is not a strategy. *" required></textarea>
+      </div>
+      <div class="popup-field">
+        <input type="text" id="cfSellout" placeholder="If a brand offers us big money to say something we don't believe — what's your number? *" required>
+        <span class="field-hint">Everyone has one. Liars write "never."</span>
+      </div>
+      <div class="popup-field">
+        <textarea id="cfQuit" rows="3" placeholder="What would make you quit? Answer honestly — I'll find out eventually anyway. *" required></textarea>
+      </div>
+
+      <!-- Section 5: The Prenup Section -->
+      <div class="form-section-header">Section 5: The Prenup Section</div>
+      <div class="popup-field">
+        <select id="cfEquity" required>
+          <option value="">How should equity be split between cofounders? *</option>
+          <option value="50-50, always">50-50, always</option>
+          <option value="Based on contribution, reviewed yearly">Based on contribution, reviewed yearly</option>
+          <option value="Whoever started it keeps majority">Whoever started it keeps majority</option>
+          <option value="Let's negotiate like adults">Let's negotiate like adults</option>
+        </select>
+      </div>
+      <div class="popup-field">
+        <textarea id="cfFallout" rows="3" placeholder="Have you ever fallen out with a partner or collaborator? Tell me the version where it was YOUR fault. *" required></textarea>
+      </div>
+      <div class="popup-field">
+        <select id="cfFeedback" required>
+          <option value="">Can you take a "this bit isn't funny" note without a 3-day sulk? *</option>
+          <option value="Yes, feedback is fuel">Yes, feedback is fuel</option>
+          <option value="Yes, but give me an hour">Yes, but give me an hour</option>
+          <option value="Depends who's saying it">Depends who's saying it</option>
+          <option value="Define 'sulk'">Define "sulk"</option>
+        </select>
+      </div>
+      <div class="popup-field">
+        <textarea id="cfAnythingElse" rows="3" placeholder="Anything else I should know before we get back to you? (Optional)"></textarea>
+      </div>
+
+      <button type="submit" class="popup-submit" id="cofounderSubmitBtn">Submit Application</button>
+    </form>
+  </div>
+</div>
+
+<!-- Cofounder Success Modal -->
+<div class="modal-overlay" id="cofounderSuccessModal">
+  <div class="modal" style="max-width: 500px; text-align: center;">
+    <div style="font-size: 48px; margin-bottom: 16px;">✅</div>
+    <h3>Application Submitted</h3>
+    <p style="margin-top: 12px; color: var(--text-light); line-height: 1.6;">Thanks — the other 0.5 has been notified. If your answers survive the first read, you'll hear from us within a week. If not, episode 1 will still be free to watch.</p>
+    <button onclick="document.getElementById('cofounderSuccessModal').classList.remove('active')" style="margin-top: 24px; padding: 12px 24px; background: var(--purple); color: white; border: none; border-radius: 8px; font-weight: 600; cursor: pointer;">Got it</button>
   </div>
 </div>
 
